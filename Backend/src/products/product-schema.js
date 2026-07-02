@@ -18,7 +18,7 @@ const Product = sequelize.define('products', {
     },
     sku: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     barcode: {
         type: DataTypes.STRING,
