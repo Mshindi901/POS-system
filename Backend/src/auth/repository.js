@@ -54,6 +54,16 @@ class AuthRepository {
         }
     };
 
+    async findAllUsers(){
+        try {
+            const users = await this.usermodel.findAll();
+            return users;
+        } catch (error) {
+            console.error(`Error with getting all users: ${error}`);
+            return null;
+        }
+    }
+
     async updateUser(id, updatedData){
         try {
             const updatedUser = await this.usermodel.update(updatedData, { where: { id }, returning: true });
