@@ -122,7 +122,7 @@ export const getALlProducts = async (req, res) => {
         };
         return res.status(200).json({success:true,message:'Products Found',data:products});
     } catch (error) {
-        console.error(`Error with deleting the product ${error}`);
+        console.error(`Error with fetching all product records ${error}`);
         return res.status(500).json({success:false,message:'Internal Server Error'});
     }
 };
@@ -164,7 +164,7 @@ export const newUnit = async(req, res) => {
         };
         return res.status(201).json({success:true,message:'Unit created'});
     } catch (error) {
-        console.error(`Error with filtering product by unit namem ${error}`);
+        console.error(`Error with creating a new unit record ${error}`);
         return res.status(500).json({success:false,message:'Internal Server Error'});
     }
 };
@@ -181,7 +181,7 @@ export const getAllUnits = async(req, res) => {
         };
         return res.status(200).json({success:true,message:'Units Fetched',data:units});
     } catch (error) {
-        console.error(`Error with filtering product by unit namem ${error}`);
+        console.error(`Error with getting all unit records ${error}`);
         return res.status(500).json({success:false,message:'Internal Server Error'});
     }
 };
@@ -206,7 +206,7 @@ export const updateUnit = async(req, res) => {
         };
         return res.status(200).json({success:true,message:'Unit Info updated'});
     } catch (error) {
-        console.error(`Error with filtering product by unit namem ${error}`);
+        console.error(`Error with updating unit record ${error}`);
         return res.status(500).json({success:false,message:'Internal Server Error'});
     }
 };
@@ -227,7 +227,7 @@ export const deletedUnit = async(req, res) => {
         };
         return res.status(200).json({success:true,message:'Unit deleted'})
     } catch (error) {
-        console.error(`Error with filtering product by unit namem ${error}`);
+        console.error(`Error with deleting unit ${error}`);
         return res.status(500).json({success:false,message:'Internal Server Error'});
     }
 };
