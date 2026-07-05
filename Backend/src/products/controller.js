@@ -64,6 +64,28 @@ export const getProductById = async(req, res) => {
     }
 };
 
+export const getProductByCategory = async (req, res) => {
+    try {
+        const id = req.user.id;
+        if(!id){
+            return res.status(400).json({success:false,message:'Not authenticated, please Login'});
+        };
+        const name = req.body;
+        const category = await product_service.categorizeByCategory(name);
+        if(!category){
+            return res.status(400).json({success:false,message:'Invalid Category name'});
+        };
+        const products = await product_service.getProductByCategory(category.id);
+        if(!products){
+            return res.status(400).json({success:false,message:'Failed to get Products by Category'}); 
+        };
+        return res.status(200).json({success:true,message:'Fetched Products by Category',data:products});
+    } catch (error) {
+        console.error(`Error with getting the products by Category unique ${error}`);
+        return res.status(500).json({success:false,message:'Internal Server Error'});
+    }
+};
+
 export const updateProduct = async(req, res) => {
     try {
         const id = req.user.id;
@@ -166,6 +188,47 @@ export const newUnit = async(req, res) => {
     } catch (error) {
         console.error(`Error with creating a new unit record ${error}`);
         return res.status(500).json({success:false,message:'Internal Server Error'});
+    }
+};
+
+export const newCategory = async (req, res) => {
+    try {
+        const id = req.user.id;
+        if(!id){
+            return res.status(400).json({success:false,message:'Not authenticated, please Login'});
+        };
+        const {name, description} = req.body;
+        if(!name){
+            return res.status(400).json({success:false,message:'Provide the name for the category'});
+        };
+        const category = await product_service.createCategory({name, description});
+        if(!category){
+            return res.status(400).json({success:false,message:'Failed to create new category'});
+        };
+        return res.status(201).json({success:true,message:'Category created'});
+    } catch (error) {
+        console.error(`Error with creating a new category record ${error}`);
+        return res.status(500).json({success:false,message:'Internal Server Error'});
+    }
+};
+
+export const getAllCategory = async (req, res) => {
+    try {
+        const id = req.user.id;
+        if(!id){
+            return res.status(400).json({success:false,message:'Not authenticated, please Login'});
+        };
+        const categories = await this.repo.getAllCategories();
+        if(!categories){
+            return res.status(400).json({success:false,message:'Failed to fetch all categories'});
+        };
+        return res.status(200).json({success:true, message:'Fetched all categories', data:categories})
+    } catch (error) {
+        console.error(`Error with getting all the categories ${error}`);
+        return res.status(500).json({
+            success:false,
+            message:'Internal Server Error'
+        })
     }
 };
 

@@ -16,6 +16,16 @@ const Product = sequelize.define('products', {
             key: 'id'
         }
     },
+    category_id: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+            model: 'categories',
+            key: 'id'
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+    },
     sku: {
         type: DataTypes.STRING,
         allowNull: true,

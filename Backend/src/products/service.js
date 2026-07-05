@@ -22,6 +22,20 @@ class productService{
         }
     };
 
+    async createCategory(categoryData){
+        try {
+            const newCategory = await this.repo.newCategory(categoryData);
+            if(!newCategory){
+                throw new Error('failed to create a new category');
+                return null;
+            };
+            return newCategory;
+        } catch (error) {
+            console.error(`Error with creating a new category ${error}`);
+            return null;
+        }
+    }
+
     async createUnit(unitdata){
         try {
             const newUnit = await this.repo.newUnit(unitdata);
@@ -32,6 +46,33 @@ class productService{
             return newUnit;
         } catch (error) {
             console.error(`Error with creating a unit ${error}`);
+            return null;
+        }
+    };
+
+    async getAllCategories(){
+        try {
+            const categories = await this.repo.getAllCategories();
+            if(!categories){
+                throw new Error('Failed to get all categories');
+                return null;
+            };
+            return categories;
+        } catch (error){
+            console.error(`Error with getting all categories ${error}`);
+            return null;
+        }
+    };
+    async getProductByCategory(category_id){
+        try {
+            const products = await this.repo.getAllproductsByCategory(category_id);
+            if(!products){
+                throw new Error('Failed to get products by category');
+                return null;
+            };
+            return products;
+        } catch (error) {
+            console.error(`Error with getting products by category ${error}`);
             return null;
         }
     };
@@ -194,6 +235,20 @@ class productService{
            return null; 
         }
     };
+
+    async categorizeByCategory(name){
+        try {
+            const category = await this.repo.getCategoryByName(name);
+            if(!category){
+                throw new Error(`Failed to fetch products by category ${error}`);
+                return null;
+            };
+            return category;
+        } catch (error) {
+            console.error(`Error with getting products by category ${error}`);
+            return null;
+        }
+    }
 };
 
 export default productService;

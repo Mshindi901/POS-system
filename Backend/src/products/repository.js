@@ -1,8 +1,39 @@
 class productRepo {
-    constructor(productModel, unitModel){
+    constructor(productModel, unitModel, categoryModel){
         this.productModel = productModel;
-        this.unitModel = unitModel
+        this.unitModel = unitModel;
+        this.categoryModel = categoryModel;
     };
+
+    async newCategory(data){
+        try {
+            const category = await this.categoryModel.create(data);
+            return category;
+        } catch (error) {
+            console.error(`Error with creating new category ${error}`);
+            return null;
+        }
+    };
+
+    async getAllCategories(){
+        try {
+            const categories = await this.categoryModel.findAll();
+            return categories;
+        } catch(error) {
+            console.error(`Error with getting all categories ${error}`);
+            return null;
+        }
+    };
+
+    async getCategoryByName(name){
+        try {
+            const category = await this.categoryModel.findOne({where:{name}});
+            return categoryp;
+        } catch (error) {
+            console.error(`Error with fetching category by the name ${error}`);
+            return null;
+        }
+    }
 
     //UNIT CRUD operations start from here
     async newUnit(unitData){
@@ -83,6 +114,16 @@ class productRepo {
             return products;
         } catch (error) {
             console.error(`Error with getting all products ${error}`);
+            return null;
+        }
+    }; 
+
+    async getAllproductsByCategory(category_id){
+        try {
+            const products = await this.productModel.findAll({where:{category_id}});
+            return products;
+        } catch(error){
+            console.error(`Error with getting products by category ID ${error}`);
             return null;
         }
     };
